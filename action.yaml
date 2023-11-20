@@ -101,6 +101,9 @@ runs:
         tf_state_bucket: ${{ inputs.tf_state_bucket }}
         tf_state_bucket_destroy: ${{ inputs.tf_state_bucket_destroy }}
         
+        # Aurora
+        aws_aurora_enable: true
+        
         # Current repo vars
         bitops_code_only: ${{ inputs.bitops_code_only }}
         bitops_code_store: ${{ inputs.bitops_code_store }}
