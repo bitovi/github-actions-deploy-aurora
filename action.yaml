@@ -103,6 +103,7 @@ runs:
         
         # Aurora
         aws_aurora_enable: true
+        aws_aurora_proxy: true
         
         # Current repo vars
         bitops_code_only: ${{ inputs.bitops_code_only }}
