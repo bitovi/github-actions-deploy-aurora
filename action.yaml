@@ -260,7 +260,7 @@ runs:
   steps:
     - name: Deploy with BitOps
       id: deploy
-      uses: bitovi/github-actions-commons@v0.0.12
+      uses: bitovi/github-actions-commons@fix-aurora-deletion-parameter-group
       with:
         # AWS
         aws_access_key_id: ${{ inputs.aws_access_key_id }}
