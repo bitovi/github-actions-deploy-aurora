@@ -25,7 +25,7 @@ You can **get help or ask questions** on our:
 
 Or, you can hire us for training, consulting, or development. [Set up a free consultation](https://www.bitovi.com/services/devops-consulting).
 
-# Basic Use
+# Basic Use - Postgres
 
 For basic usage, create `.github/workflows/deploy.yaml` with the following to build on push.
 ```yaml
@@ -45,6 +45,27 @@ jobs:
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws_default_region: us-east-1
 
+```
+
+# Basic MySQL
+```yaml
+on:
+  push:
+    branches:
+      - "main" # change to the branch you wish to deploy from
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - id: deploy-aurora
+      uses: bitovi/github-actions-deploy-aurora@v0.1.0
+      with:
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_default_region: us-east-1
+
+        aws_aurora_engine: aurora-mysql
 ```
 
 # Advanced use
@@ -102,15 +123,15 @@ jobs:
           aws_default_region: us-east-1
 
           tf_state_bucket_destroy: true
-          aws_aurora_db_instances_count: 3
-
+          aws_aurora_db_instances_count: 0
+  
           aws_aurora_engine: postgres
           aws_aurora_availability_zones: us-east-1a,us-east-1b,us-east-1c
           aws_aurora_cluster_db_instance_class: db.m5d.large
           aws_aurora_storage_type: io1
           aws_aurora_storage_iops: 1000
           aws_aurora_allocated_storage: 100
-
+  
           aws_aurora_proxy: true
 ```
 

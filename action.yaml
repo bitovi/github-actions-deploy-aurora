@@ -260,7 +260,7 @@ runs:
   steps:
     - name: Deploy with BitOps
       id: deploy
-      uses: bitovi/github-actions-commons@aurora-migration
+      uses: bitovi/github-actions-commons@v0.0.12
       with:
         # AWS
         aws_access_key_id: ${{ inputs.aws_access_key_id }}
