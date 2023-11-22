@@ -107,12 +107,11 @@ jobs:
           aws_aurora_engine: postgres
           aws_aurora_availability_zones: us-east-1a,us-east-1b,us-east-1c
           aws_aurora_cluster_db_instance_class: db.m5d.large
-          aws_aurora_storage_type: "io1"
+          aws_aurora_storage_type: io1
           aws_aurora_storage_iops: 1000
-          aws_aurora_allocated_storage: 10
+          aws_aurora_allocated_storage: 100
 
           aws_aurora_proxy: true
-
 ```
 
 ### Inputs
