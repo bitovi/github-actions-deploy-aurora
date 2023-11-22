@@ -126,6 +126,7 @@ The following inputs can be used as `step.with` keys
 | `aws_aurora_engine` | String | The database engine to use. Defaults to `aurora-postgresql`. |
 | `aws_aurora_engine_version` | String | The DB version of the engine to use. Will default to one of the latest selected by AWS. More information [Postgres](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraPostgreSQL.Updates.20180305.html) or [MySQL](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraMySQLReleaseNotes/Welcome.html)|
 | `aws_aurora_engine_mode` | String | Database engine mode. Could be global, multimaster, parallelquey, provisioned, serverless. |
+| `aws_aurora_availability_zones` | String | Comma separated list of zones to deploy DB to. If none, will automatically set this. | 
 | `aws_aurora_cluster_apply_immediately` | Boolean | Apply changes immediately to the cluster. If not, will be done in next maintenance window. Defaults to `false`. |
 | **Storage** |||
 | `aws_aurora_allocated_storage` | String | Amount of storage in gigabytes. Required for multi-az cluster. |
