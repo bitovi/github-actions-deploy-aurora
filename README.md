@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: deploy
-        uses: bitovi/github-actions-deploy-rds@v0.1.0
+        uses: bitovi/github-actions-deploy-aurora@v0.1.0
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -81,6 +81,38 @@ jobs:
           aws_resource_identifier: replaced-this-from
           tf_state_bucket: bitovi-resources
           tf_state_file_name_append: rds-dev-db
+```
+
+# Multi-AZ cluster
+```yaml
+on:
+  push:
+    branches:
+      - "main" # change to the branch you wish to deploy from
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - id: deploy
+        uses: bitovi/github-actions-deploy-aurora@v0.1.0
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_default_region: us-east-1
+
+          tf_state_bucket_destroy: true
+          aws_aurora_db_instances_count: 3
+
+          aws_aurora_engine: postgres
+          aws_aurora_availability_zones: us-east-1a,us-east-1b,us-east-1c
+          aws_aurora_cluster_db_instance_class: db.m5d.large
+          aws_aurora_storage_type: "io1"
+          aws_aurora_storage_iops: 1000
+          aws_aurora_allocated_storage: 10
+
+          aws_aurora_proxy: true
+
 ```
 
 ### Inputs
@@ -138,7 +170,7 @@ The following inputs can be used as `step.with` keys
 | `aws_aurora_database_name` | String | The name of the database. will be created if it does not exist. Defaults to `aurora`. |
 | `aws_aurora_master_username` | String | Master username. Defaults to `aurora`. |
 | `aws_aurora_database_group_family` | String | The family of the DB parameter group. See [MySQL Reference](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AuroraMySQL.Reference.html) or [Postgres Reference](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AuroraPostgreSQL.Reference.html). Defaults automatically set for MySQL(`aurora-mysql8.0`) and Postgres (`aurora-postgresql15`). |
-| `aws_aurora_iam_auth_enabled` | Boolean | Toggles IAM Authentication. Defaults to `true`. |
+| `aws_aurora_iam_auth_enabled` | Boolean | Toggles IAM Authentication. Defaults to `false`. |
 | `aws_aurora_iam_roles` | String | Define the ARN list of allowed roles. |
 | `aws_aurora_cluster_db_instance_class` | String | To create a Multi-AZ RDS cluster, you must additionally specify the engine, storage_type, allocated_storage, iops and aws_aurora_db_cluster_instance_class attributes. |
 | **Networking** |||
