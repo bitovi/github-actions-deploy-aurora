@@ -50,6 +50,179 @@ inputs:
     description: 'Force purge and deletion of S3 bucket defined. Any file contained there will be destroyed. `tf_stack_destroy` must also be `true`'
     required: false
   
+
+  # AWS Aurora
+  aws_aurora_enable:
+    description: 'Toggles deployment of an Aurora database. Defaults to true.'
+    required: false
+    default: true
+  aws_aurora_proxy:
+    description: 'Aurora DB Proxy Toggle. Defaults to false.'
+    required: false
+  aws_aurora_cluster_name:
+    description: 'The name of the cluster. Will be created if it does not exist. Defaults to aws_resource_identifier if none set.'
+    required: false
+  aws_aurora_engine:
+    description: 'The database engine to use. Defaults to aurora-postgresql.'
+    required: false
+  aws_aurora_engine_version:
+    description: 'The DB version of the engine to use.'
+    required: false
+  aws_aurora_engine_mode:
+    description: 'Database engine mode. Could be global, multimaster, parallelquey, provisioned, serverless.'
+    required: false
+  aws_aurora_cluster_apply_immediately:
+    description: 'Apply changes immediately to the cluster. If not, will be done in next maintenance window.. Default false'
+    required: false
+  # Storage
+  aws_aurora_allocated_storage:
+    description: 'Amount of storage in gigabytes. Required for multi-az cluster.'
+    required: false
+  aws_aurora_storage_encrypted:
+    description: 'Toggles whether the DB cluster is encrypted. Defaults to true.'
+    required: false
+  aws_aurora_kms_key_id:
+    description: 'KMS Key ID to use with the cluster encrypted storage.'
+    required: false
+  aws_aurora_storage_type:
+    description: 'Define type of storage to use. Required for multi-az cluster.'
+    required: false
+  aws_aurora_storage_iops:
+    description: 'iops for storage. Required for multi-az cluster. '
+    required: false
+  # Cluster details
+  aws_aurora_database_name:
+    description: 'The name of the database. will be created if it does not exist. Defaults to aurora'
+    required: false
+  aws_aurora_master_username:
+    description: 'Master username. Defaults to aurora'
+    required: false
+  aws_aurora_database_group_family:
+    description: 'The family of the DB parameter group. See https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AuroraMySQL.Reference.html https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AuroraPostgreSQL.Reference.html. Defaults set for Postges and MySQL.'
+    required: false
+  aws_aurora_iam_auth_enabled:
+    description: 'Toggles IAM Authentication. Defaults to true.'
+    required: false
+  aws_aurora_iam_roles:
+    description: 'Define the ARN list of allowed roles.'
+    required: false
+  aws_aurora_cluster_db_instance_class:
+    description: 'To create a Multi-AZ RDS cluster, you must additionally specify the engine, storage_type, allocated_storage, iops and aws_aurora_db_cluster_instance_class attributes.'
+    required: false
+  # Networking
+  aws_aurora_security_group_name:
+    description: 'Name of the security group to use for postgres. Defaults to SG for ${var.aws_resource_identifier} - Aurora'
+    required: false
+  aws_aurora_allowed_security_groups:
+    description: 'Extra names of the security groups to access Aurora.'
+    required: false
+  aws_aurora_ingress_allow_all:
+    description: 'Allow access from 0.0.0.0/0 in the same VPC. Defaults to true'
+    required: false
+  aws_aurora_subnets:
+    description: 'The list of subnet ids to use for postgres.'
+    required: false
+  aws_aurora_database_port:
+    description: 'Database port. Defaults to 5432'
+    required: false
+  # Backup & maint
+  aws_aurora_cloudwatch_enable:
+    description: 'Toggles cloudwatch. Defaults to true'
+    required: false
+  aws_aurora_cloudwatch_log_type:
+    description: 'Comma separated list of log types to include in cloudwatch. If none defined, will use [postgresql] or [audit,error,general,slowquery]. Based on the db engine.'
+    required: false
+  aws_aurora_cloudwatch_retention_days:
+    description: 'Days to store cloudwatch logs. Defaults to 7.'
+    required: false
+  aws_aurora_backtrack_window:
+    description: 'Target backtrack window, in seconds. Only available for aurora and aurora-mysql engines currently. 0 to disable. Defaults to 0'
+    required: false
+  aws_aurora_backup_retention_period:
+    description: 'Days to retain backups for. Defaults to 5.'
+    required: false
+  aws_aurora_backup_window:
+    description: 'Daily time range during which the backups happen.'
+    required: false
+  aws_aurora_maintenance_window:
+    description: 'Maintenance window.'
+    required: false
+  aws_aurora_database_final_snapshot:
+    description: 'Set the name to Generate a snapshot of the database before deletion.'
+    required: false
+  aws_aurora_deletion_protection:
+    description: 'Protects the database from deletion. Defaults to false. This won't prevent Terraform from destroying it.'
+    required: false
+  aws_aurora_delete_auto_backups:
+    description: 'Specifies whether to remove automated backups immediately after the DB cluster is deleted. Default is true.'
+    required: false
+  aws_aurora_restore_snapshot_id:
+    description: 'Restore an initial snapshot of the DB if specified.'
+    required: false
+  aws_aurora_restore_to_point_in_time:
+    description: 'Restore database to a point in time. Will require a map of strings. Like {"restore_to_time"="W","restore_type"="X","source_cluster_identifier"="Y", "use_latest_restorable_time"="Z"}. Default {}'
+    required: false
+  aws_aurora_snapshot_name:
+    description: 'Takes a snapshot of the DB.'
+    required: false
+  aws_aurora_snapshot_overwrite:
+    description: 'Overwrites snapshot if same name is set. Defaults to false.'
+    required: false
+  # DB Parameters
+  aws_aurora_db_instances_count:
+    description: 'Amount of instances to create. Defaults to 1.'
+    required: false
+  aws_aurora_db_instance_class:
+    description: 'Database instance size. Defaults to db.r6g.large.'
+    required: false
+  aws_aurora_db_apply_immediately:
+    description: 'Specifies whether any modifications are applied immediately, or during the next maintenance window. Defaults to false.'
+    required: false
+  aws_aurora_db_ca_cert_identifier:
+    description: 'Certificate to use with the database. Defaults to rds-ca-ecc384-g1.'
+    required: false
+  aws_aurora_db_maintenance_window:
+    description: 'Maintenance window.'
+    required: false
+  aws_aurora_db_publicly_accessible:
+    description: 'Make database publicly accessible. Defaults to false.'
+    required: false
+  aws_aurora_additional_tags:
+    description: 'A JSON object of additional tags that will be included on created resources. Example: `{"key1": "value1", "key2": "value2"}`'
+    required: false
+
+  # Aurora Proxy
+  aws_db_proxy_name:
+    description: 'DB Proxy name'
+    required: false
+  aws_db_proxy_client_password_auth_type:
+    description: 'Auth type to use, will use the following, depending on DB the family. MYSQL_NATIVE_PASSWORD, POSTGRES_SCRAM_SHA_256, and SQL_SERVER_AUTHENTICATION'
+    required: false
+  aws_db_proxy_tls:
+    description: 'Toogle TLS enforcement for connection'
+    required: false
+  aws_db_proxy_security_group_name:
+    description: 'Name for the proxy security group. Default to aws_resource_identifier if none.'
+    required: false
+  aws_db_proxy_database_security_group_allow:
+    description: 'Will add an incoming rule from every security group associated with the DB'
+    required: false
+  aws_db_proxy_allowed_security_group:
+    description: 'Comma separated list of SG Ids to add.'
+    required: false
+  aws_db_proxy_allow_all_incoming:
+    description: 'Allow all incoming traffic to the DB Proxy. Mind that the proxy is only available from the internal network except manually exposed.'
+    required: false
+  aws_db_proxy_cloudwatch_enable:
+    description: 'Toggle Cloudwatch logs. Will be stored in /aws/rds/proxy/rds_proxy.name'
+    required: false
+  aws_db_proxy_cloudwatch_retention_days:
+    description: 'Number of days to retain logs'
+    required: false
+  aws_db_proxy_additional_tags:
+    description: 'A list of strings that will be added to created resources'
+    required: false
+
   # AWS VPC Inputs
   aws_vpc_create:
     description: 'Define if a VPC should be created'
@@ -102,9 +275,68 @@ runs:
         tf_state_bucket_destroy: ${{ inputs.tf_state_bucket_destroy }}
         
         # Aurora
-        aws_aurora_enable: true
-        aws_aurora_proxy: true
-        
+        aws_aurora_enable: ${{ inputs.aws_aurora_enable }}
+        aws_aurora_proxy: ${{ inputs.aws_aurora_proxy }}
+        aws_aurora_cluster_name: ${{ inputs.aws_aurora_cluster_name }}
+        aws_aurora_engine: ${{ inputs.aws_aurora_engine }}
+        aws_aurora_engine_version: ${{ inputs.aws_aurora_engine_version }}
+        aws_aurora_engine_mode: ${{ inputs.aws_aurora_engine_mode }}
+        aws_aurora_cluster_apply_immediately: ${{ inputs.aws_aurora_cluster_apply_immediately }}
+        # Storage
+        aws_aurora_allocated_storage: ${{ inputs.aws_aurora_allocated_storage }}
+        aws_aurora_storage_encrypted: ${{ inputs.aws_aurora_storage_encrypted }}
+        aws_aurora_kms_key_id: ${{ inputs.aws_aurora_kms_key_id }}
+        aws_aurora_storage_type: ${{ inputs.aws_aurora_storage_type }}
+        aws_aurora_storage_iops: ${{ inputs.aws_aurora_storage_iops }}
+        # DB Details
+        aws_aurora_database_name: ${{ inputs.aws_aurora_database_name }}
+        aws_aurora_master_username: ${{ inputs.aws_aurora_master_username }}
+        aws_aurora_database_group_family: ${{ inputs.aws_aurora_database_group_family }}
+        aws_aurora_iam_auth_enabled: ${{ inputs.aws_aurora_iam_auth_enabled }}
+        aws_aurora_iam_roles: ${{ inputs.aws_aurora_iam_roles }}
+        aws_aurora_cluster_db_instance_class: ${{ inputs.aws_aurora_cluster_db_instance_class }}
+        # Net
+        aws_aurora_security_group_name: ${{ inputs.aws_aurora_security_group_name }}
+        aws_aurora_allowed_security_groups: ${{ inputs.aws_aurora_allowed_security_groups }}
+        aws_aurora_ingress_allow_all: ${{ inputs.aws_aurora_ingress_allow_all }}
+        aws_aurora_subnets: ${{ inputs.aws_aurora_subnets }}
+        aws_aurora_database_port: ${{ inputs.aws_aurora_database_port }}
+        # Backup & Maint
+        aws_aurora_cloudwatch_enable: ${{ inputs.aws_aurora_cloudwatch_enable }}
+        aws_aurora_cloudwatch_log_type: ${{ inputs.aws_aurora_cloudwatch_log_type }}
+        aws_aurora_cloudwatch_retention_days: ${{ inputs.aws_aurora_cloudwatch_retention_days }}
+        aws_aurora_backtrack_window: ${{ inputs.aws_aurora_backtrack_window }}
+        aws_aurora_backup_retention_period: ${{ inputs.aws_aurora_backup_retention_period }}
+        aws_aurora_backup_window: ${{ inputs.aws_aurora_backup_window }}
+        aws_aurora_maintenance_window: ${{ inputs.aws_aurora_maintenance_window }}
+        aws_aurora_database_final_snapshot: ${{ inputs.aws_aurora_database_final_snapshot }}
+        aws_aurora_deletion_protection: ${{ inputs.aws_aurora_deletion_protection }}
+        aws_aurora_delete_auto_backups: ${{ inputs.aws_aurora_delete_auto_backups }}
+        aws_aurora_restore_snapshot_id: ${{ inputs.aws_aurora_restore_snapshot_id }}
+        aws_aurora_restore_to_point_in_time: ${{ inputs.aws_aurora_restore_to_point_in_time }}
+        aws_aurora_snapshot_name: ${{ inputs.aws_aurora_snapshot_name }}
+        aws_aurora_snapshot_overwrite: ${{ inputs.aws_aurora_snapshot_overwrite }}
+        # DB Parameters
+        aws_aurora_db_instances_count: ${{ inputs.aws_aurora_db_instances_count }}
+        aws_aurora_db_instance_class: ${{ inputs.aws_aurora_db_instance_class }}
+        aws_aurora_db_apply_immediately: ${{ inputs.aws_aurora_db_apply_immediately }}
+        aws_aurora_db_ca_cert_identifier: ${{ inputs.aws_aurora_db_ca_cert_identifier }}
+        aws_aurora_db_maintenance_window: ${{ inputs.aws_aurora_db_maintenance_window }}
+        aws_aurora_db_publicly_accessible: ${{ inputs.aws_aurora_db_publicly_accessible }}
+        aws_aurora_additional_tags: ${{ inputs.aws_aurora_additional_tags }}
+
+        # Proxy
+        aws_db_proxy_name : ${{ inputs.aws_db_proxy_name }}
+        aws_db_proxy_client_password_auth_type : ${{ inputs.aws_db_proxy_client_password_auth_type }}
+        aws_db_proxy_tls : ${{ inputs.aws_db_proxy_tls }}
+        aws_db_proxy_security_group_name : ${{ inputs.aws_db_proxy_security_group_name }}
+        aws_db_proxy_database_security_group_allow : ${{ inputs.aws_db_proxy_database_security_group_allow }}
+        aws_db_proxy_allowed_security_group : ${{ inputs.aws_db_proxy_allowed_security_group }}
+        aws_db_proxy_allow_all_incoming : ${{ inputs.aws_db_proxy_allow_all_incoming }}
+        aws_db_proxy_cloudwatch_enable : ${{ inputs.aws_db_proxy_cloudwatch_enable }}
+        aws_db_proxy_cloudwatch_retention_days : ${{ inputs.aws_db_proxy_cloudwatch_retention_days }}
+        aws_db_proxy_additional_tags: ${{ inputs.aws_db_proxy_additional_tags }}
+
         # Current repo vars
         bitops_code_only: ${{ inputs.bitops_code_only }}
         bitops_code_store: ${{ inputs.bitops_code_store }}
