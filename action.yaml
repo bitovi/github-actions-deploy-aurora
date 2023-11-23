@@ -267,13 +267,13 @@ outputs:
     value: ${{ steps.deploy.outputs.aurora_db_sg_id }}
   aurora_proxy_endpoint:
     description: "Database proxy endpoint"
-    value: ${{ steps.deploy.outputs.db_proxy_aurora }}
+    value: ${{ steps.deploy.outputs.aurora_proxy_endpoint }}
   aurora_proxy_secret_name:
     description: "AWS Secret name containing proxy credentials"
-    value: ${{ steps.deploy.outputs.db_proxy_secret_name_aurora }}
+    value: ${{ steps.deploy.outputs.aurora_proxy_secret_name }}
   aurora_proxy_sg_id:
     description: "SG ID for the Aurora Proxy instance"
-    value: ${{ steps.deploy.outputs.db_proxy_sg_id_aurora }}
+    value: ${{ steps.deploy.outputs.aurora_proxy_sg_id }}
     
 runs:
   using: 'composite'
