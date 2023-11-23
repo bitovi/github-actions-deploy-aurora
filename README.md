@@ -138,9 +138,12 @@ jobs:
 ### Inputs
 1. [AWS Specific](#aws-specific)
 1. [Action default inputs](#action-default-inputs)
-1. [RDS Inputs](#rds-inputs)
-1. [DB Proxy Inputs](#db-proxy-inputs)
+1. [Aurora Inputs](#aurora-inputs)
+1. [Aurora Proxy Inputs](#aurora-proxy-inputs)
 1. [VPC Inputs](#vpc-inputs)
+
+### Outputs
+1. [Aurora Outputs](#aurora-outputs)
 
 The following inputs can be used as `step.with` keys
 <br/>
@@ -224,7 +227,7 @@ The following inputs can be used as `step.with` keys
 | `aws_aurora_additional_tags` | JSON | A JSON object of additional tags that will be included on created resources. Example: `{"key1": "value1", "key2": "value2"}`. |
 <br/>
 
-#### **DB Proxy Inputs**
+#### **Aurora Proxy Inputs**
 | Name             | Type    | Description                        |
 |------------------|---------|------------------------------------|
 | `aws_db_proxy_name` | String | Name of the database proxy.  Defaults to `aws_resource_identifier` |
@@ -253,6 +256,17 @@ The following inputs can be used as `step.with` keys
 | `aws_vpc_additional_tags` | JSON | Add additional tags to the terraform [default tags](https://www.hashicorp.com/blog/default-tags-in-the-terraform-aws-provider), any tags put here will be added to vpc provisioned resources.|
 <br/>
 
+#### **Aurora Outputs**
+| Name             | Description                        |
+|------------------|------------------------------------|
+| `aurora_db_endpoint` | Aurora Endpoint. |
+| `aurora_db_secret_details_name` | AWS Secret name containing db credentials. |
+| `aurora_db_sg_id` | SG ID for the Aurora instance. |
+| `aurora_proxy_endpoint` | Database proxy endpoint. |
+| `aurora_proxy_secret_name` | AWS Secret name containing proxy credentials. |
+| `aurora_proxy_sg_id` | SG ID for the Aurora Proxy instance. |
+
+<br/>
 
 ## Contributing
 We would love for you to contribute to [`bitovi/github-actions-deploy-rds`](hhttps://github.com/bitovi/github-actions-deploy-rds).   [Issues](https://github.com/bitovi/github-actions-deploy-rds/issues) and [Pull Requests](https://github.com/bitovi/github-actions-deploy-rds/pulls) are welcome!

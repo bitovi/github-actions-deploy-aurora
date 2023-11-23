@@ -256,7 +256,6 @@ inputs:
     required: false
 
 outputs:
-  # EC2
   aurora_db_endpoint:
     description: "Aurora Endpoint"
     value: ${{ steps.deploy.outputs.aurora_db_endpoint }}
