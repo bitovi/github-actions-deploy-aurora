@@ -94,14 +94,14 @@ jobs:
           aws_aurora_proxy: true
           aws_aurora_cluster_apply_immediately: true
           aws_aurora_database_name: some-db-name
-          aws_aurora_master_username: myrdsuser
+          aws_aurora_master_username: master
           aws_aurora_ingress_allow_all: true
           aws_aurora_subnets: subnet-0000000000000,subnet-0000000000000
           aws_aurora_db_instance_class: db.r6g.large
           aws_vpc_id: vpc-0000000000000
           aws_resource_identifier: replaced-this-from
           tf_state_bucket: bitovi-resources
-          tf_state_file_name_append: rds-dev-db
+          tf_state_file_name_append: aurora-dev-db
 ```
 
 # Multi-AZ cluster
@@ -269,10 +269,10 @@ The following inputs can be used as `step.with` keys
 <br/>
 
 ## Contributing
-We would love for you to contribute to [`bitovi/github-actions-deploy-rds`](hhttps://github.com/bitovi/github-actions-deploy-rds).   [Issues](https://github.com/bitovi/github-actions-deploy-rds/issues) and [Pull Requests](https://github.com/bitovi/github-actions-deploy-rds/pulls) are welcome!
+We would love for you to contribute to [`bitovi/github-actions-deploy-aurora`](hhttps://github.com/bitovi/github-actions-deploy-aurora).   [Issues](https://github.com/bitovi/github-actions-deploy-aurora/issues) and [Pull Requests](https://github.com/bitovi/github-actions-deploy-aurora/pulls) are welcome!
 
 ## License
-The scripts and documentation in this project are released under the [MIT License](https://github.com/bitovi/github-actions-deploy-rds/blob/main/LICENSE).
+The scripts and documentation in this project are released under the [MIT License](https://github.com/bitovi/github-actions-deploy-aurora/blob/main/LICENSE).
 
 # Provided by Bitovi
 [Bitovi](https://www.bitovi.com/) is a proud supporter of Open Source software.
