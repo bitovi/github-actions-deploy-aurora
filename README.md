@@ -2,7 +2,7 @@
 `bitovi/github-actions-deploy-aurora` deploys an Aurora cluster with any amount of instances, with the option for a proxy.
 
 This action uses our new GitHub Actions Commons repository, a library that contains multiple Terraform modules, allowing us to condense all of our tools in one repo, hence continuous improvements are made to it. 
-
+![alt](https://bitovi-gha-pixel-tracker-deployment-main.bitovi-sandbox.com/pixel/C_iypLByw8-MNrgzYYMC_)
 ## Action Summary
 This action creates an Aurora Cluster, with the option to add even a proxy. Could be a Postgres or MySQL. 
 
