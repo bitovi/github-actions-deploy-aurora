@@ -259,6 +259,7 @@ The following inputs can be used as `step.with` keys
 #### **Aurora Outputs**
 | Name             | Description                        |
 |------------------|------------------------------------|
+| `aws_vpc_id` | The selected VPC ID used. |
 | `aurora_db_endpoint` | Aurora Endpoint. |
 | `aurora_db_secret_details_name` | AWS Secret name containing db credentials. |
 | `aurora_db_sg_id` | SG ID for the Aurora instance. |
