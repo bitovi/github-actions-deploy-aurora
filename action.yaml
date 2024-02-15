@@ -104,7 +104,7 @@ inputs:
     description: 'The family of the DB parameter group. See https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AuroraMySQL.Reference.html https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AuroraPostgreSQL.Reference.html. Defaults set for Postges and MySQL.'
     required: false
   aws_aurora_iam_auth_enabled:
-    description: 'Toggles IAM Authentication. Defaults to true.'
+    description: 'Toggles IAM Authentication. Defaults to false.'
     required: false
   aws_aurora_iam_roles:
     description: 'Define the ARN list of allowed roles.'
@@ -116,17 +116,20 @@ inputs:
   aws_aurora_security_group_name:
     description: 'Name of the security group to use for postgres. Defaults to SG for ${var.aws_resource_identifier} - Aurora'
     required: false
-  aws_aurora_allowed_security_groups:
-    description: 'Extra names of the security groups to access Aurora.'
-    required: false
   aws_aurora_ingress_allow_all:
     description: 'Allow access from 0.0.0.0/0 in the same VPC. Defaults to true'
+    required: false
+  aws_aurora_allowed_security_groups:
+    description: 'Extra names of the security groups to access Aurora.'
     required: false
   aws_aurora_subnets:
     description: 'The list of subnet ids to use for postgres.'
     required: false
   aws_aurora_database_port:
     description: 'Database port. Defaults to 5432'
+    required: false
+  aws_aurora_db_publicly_accessible:
+    description: 'Make database publicly accessible. Defaults to false.'
     required: false
   # Backup & maint
   aws_aurora_cloudwatch_enable:
@@ -186,9 +189,6 @@ inputs:
     required: false
   aws_aurora_db_maintenance_window:
     description: 'Maintenance window.'
-    required: false
-  aws_aurora_db_publicly_accessible:
-    description: 'Make database publicly accessible. Defaults to false.'
     required: false
   aws_aurora_additional_tags:
     description: 'A JSON object of additional tags that will be included on created resources. Example: `{"key1": "value1", "key2": "value2"}`'
@@ -280,7 +280,7 @@ runs:
   steps:
     - name: Deploy with BitOps
       id: deploy
-      uses: bitovi/github-actions-commons@v0.0.12
+      uses: bitovi/github-actions-commons@v0.0.13
       with:
         # AWS
         aws_access_key_id: ${{ inputs.aws_access_key_id }}
@@ -304,6 +304,7 @@ runs:
         aws_aurora_engine: ${{ inputs.aws_aurora_engine }}
         aws_aurora_engine_version: ${{ inputs.aws_aurora_engine_version }}
         aws_aurora_engine_mode: ${{ inputs.aws_aurora_engine_mode }}
+        aws_aurora_availability_zones: ${{ inputs.aws_aurora_availability_zones }}
         aws_aurora_cluster_apply_immediately: ${{ inputs.aws_aurora_cluster_apply_immediately }}
         # Storage
         aws_aurora_allocated_storage: ${{ inputs.aws_aurora_allocated_storage }}
@@ -320,8 +321,9 @@ runs:
         aws_aurora_cluster_db_instance_class: ${{ inputs.aws_aurora_cluster_db_instance_class }}
         # Net
         aws_aurora_security_group_name: ${{ inputs.aws_aurora_security_group_name }}
-        aws_aurora_allowed_security_groups: ${{ inputs.aws_aurora_allowed_security_groups }}
         aws_aurora_ingress_allow_all: ${{ inputs.aws_aurora_ingress_allow_all }}
+        aws_aurora_allowed_security_groups: ${{ inputs.aws_aurora_allowed_security_groups }}
+        aws_aurora_db_publicly_accessible: ${{ inputs.aws_aurora_db_publicly_accessible }}
         aws_aurora_subnets: ${{ inputs.aws_aurora_subnets }}
         aws_aurora_database_port: ${{ inputs.aws_aurora_database_port }}
         # Backup & Maint
@@ -345,9 +347,7 @@ runs:
         aws_aurora_db_apply_immediately: ${{ inputs.aws_aurora_db_apply_immediately }}
         aws_aurora_db_ca_cert_identifier: ${{ inputs.aws_aurora_db_ca_cert_identifier }}
         aws_aurora_db_maintenance_window: ${{ inputs.aws_aurora_db_maintenance_window }}
-        aws_aurora_db_publicly_accessible: ${{ inputs.aws_aurora_db_publicly_accessible }}
         aws_aurora_additional_tags: ${{ inputs.aws_aurora_additional_tags }}
-
         # Proxy
         aws_db_proxy_name : ${{ inputs.aws_db_proxy_name }}
         aws_db_proxy_client_password_auth_type : ${{ inputs.aws_db_proxy_client_password_auth_type }}
@@ -373,4 +373,7 @@ runs:
         aws_vpc_availability_zones: ${{inputs.aws_vpc_availability_zones }}
         aws_vpc_id: ${{inputs.aws_vpc_id }}
         aws_vpc_subnet_id: ${{inputs.aws_vpc_subnet_id }}
+        aws_vpc_enable_nat_gateway: ${{ inputs.aws_vpc_enable_nat_gateway }}
+        aws_vpc_single_nat_gateway: ${{ inputs.aws_vpc_single_nat_gateway }}
+        aws_vpc_external_nat_ip_ids: ${{ inputs.aws_vpc_external_nat_ip_ids }}
         aws_vpc_additional_tags: ${{inputs.aws_vpc_additional_tags }}

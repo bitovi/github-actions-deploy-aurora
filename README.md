@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - id: deploy-aurora
-      uses: bitovi/github-actions-deploy-aurora@v0.1.0
+      uses: bitovi/github-actions-deploy-aurora@v0.1.1
       with:
         aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - id: deploy-aurora
-      uses: bitovi/github-actions-deploy-aurora@v0.1.0
+      uses: bitovi/github-actions-deploy-aurora@v0.1.1
       with:
         aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -80,7 +80,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: deploy
-        uses: bitovi/github-actions-deploy-aurora@v0.1.0
+        uses: bitovi/github-actions-deploy-aurora@v0.1.1
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
