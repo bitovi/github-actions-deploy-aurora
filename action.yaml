@@ -256,6 +256,9 @@ inputs:
     required: false
 
 outputs:
+  aws_vpc_id:
+    description: "The selected VPC ID used."
+    value: ${{ steps.deploy.outputs.aws_vpc_id }}
   aurora_db_endpoint:
     description: "Aurora Endpoint"
     value: ${{ steps.deploy.outputs.aurora_db_endpoint }}
