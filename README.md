@@ -266,8 +266,20 @@ The following inputs can be used as `step.with` keys
 | `aurora_proxy_endpoint` | Database proxy endpoint. |
 | `aurora_proxy_secret_name` | AWS Secret name containing proxy credentials. |
 | `aurora_proxy_sg_id` | SG ID for the Aurora Proxy instance. |
-
 <br/>
+
+## Note about resource identifiers
+
+Most resources will contain the tag `${GITHUB_ORG_NAME}-${GITHUB_REPO_NAME}-${GITHUB_BRANCH_NAME}`, some of them, even the resource name after. 
+We limit this to a 60 characters string because some AWS resources have a length limit and short it if needed.
+
+We use the kubernetes style for this. For example, kubernetes -> k(# of characters)s -> k8s. And so you might see some compressions are made.
+
+For some specific resources, we have a 32 characters limit. If the identifier length exceeds this number after compression, we remove the middle part and replace it for a hash made up from the string itself. 
+
+### S3 buckets naming
+
+Buckets names can be made of up to 63 characters. If the length allows us to add -tf-state, we will do so. If not, a simple -tf will be added.
 
 ## Contributing
 We would love for you to contribute to [`bitovi/github-actions-deploy-aurora`](hhttps://github.com/bitovi/github-actions-deploy-aurora).   [Issues](https://github.com/bitovi/github-actions-deploy-aurora/issues) and [Pull Requests](https://github.com/bitovi/github-actions-deploy-aurora/pulls) are welcome!
